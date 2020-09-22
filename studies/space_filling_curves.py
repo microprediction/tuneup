@@ -13,16 +13,28 @@ from deap import benchmarks
 
 # We'll use DEAP's set of groovy benchmarks.
 # See pretty pictures at https://deap.readthedocs.io/en/master/api/benchmarks.html#deap.benchmarks
-OBJECTIVES = [benchmarks.schaffer, benchmarks.rastrigin_scaled, benchmarks.rastrigin_skew, benchmarks.rastrigin, benchmarks.rosenbrock,
-              benchmarks.ackley, benchmarks.cigar, benchmarks.griewank, benchmarks.h1, benchmarks.himmelblau, benchmarks.rastrigin, benchmarks.fonseca,
-              benchmarks.schaffer_mo, benchmarks.zdt1, benchmarks.zdt2, benchmarks.zdt3, benchmarks.zdt4, benchmarks.zdt6]
+OBJECTIVES = {benchmarks.schaffer:100,
+              benchmarks.bohachevsky:100,
+              benchmarks.griewank:600,
+              benchmarks.h1:100,
+              benchmarks.himmelblau:6,
+              benchmarks.rastrigin:5.12,
+              benchmarks.rastrigin_scaled:5.12,
+              benchmarks.rastrigin_skew:5.12,
+              benchmarks.schwefel:500}
 
+
+def scale_me(u,scale):
+    if isinstance(u,list):
+        return [u_*scale for u_ in u]
+    else:
+        return u*scale
 
 all_counts = Counter()      # All wins broken down by method
 overall_counts = Counter()  # Total number of wins for projection
 n_trials = 20               # Number of evaluations of the objective function
 n_races  = 500              # Number of times to run the horse race
-for objective in OBJECTIVES:
+for objective,scale in OBJECTIVES.items():
     current_counts = Counter()
 
     print(objective.__name__)
@@ -33,28 +45,28 @@ for objective in OBJECTIVES:
         u = trial.suggest_float('u',1e-6,1-1e-6)
         z = StatsConventions.norminv(u)
         u2 = zc.from_zcurve(zvalue=z, dim=2)
-        return objective(u2)[0]
+        return objective(scale_me(u2,scale))[0]
 
     def univariate_trivariate(trial):
         u = trial.suggest_float('u',1e-6,1-1e-6)
         z = StatsConventions.norminv(u)
         u2 = zc.from_zcurve(zvalue=z, dim=3)
 
-        return objective(u2)[0]
+        return objective(scale_me(u2,scale))[0]
 
     def trivariate(trial):
         u1 = trial.suggest_float('u1',1e-6,1-1e-6)
         u2 = trial.suggest_float('u2',1e-6,1-1e-6)
         u3 = trial.suggest_float('u3',1e-6,1-1e-6)
         u = [u1,u2,u3]
-        return objective(u)[0]
+        return objective(scale_me(u,scale))[0]
 
 
     def bivariate(trial):
         u1 = trial.suggest_float('u1',1e-6,1-1e-6)
         u2 = trial.suggest_float('u2',1e-6,1-1e-6)
         u = [u1,u2]
-        return objective(u)[0]
+        return objective(scale_me(u,scale))[0]
 
 
     HORSE_RACE = [univariate_trivariate, trivariate]
