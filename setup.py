@@ -6,9 +6,9 @@ HERE = pathlib.Path(__file__).parent
 README = (HERE / "README.md").read_text()
 
 setup(
-    name="microcorporates",
+    name="tuneup",
     version="0.0.1",
-    description="Sugar for optuna and use with filtering",
+    description="Studying optuna and other optim packages",
     long_description=README,
     long_description_content_type="text/markdown",
     url="https://github.com/microprediction/tuneup",
@@ -20,14 +20,14 @@ setup(
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.7",
     ],
-    packages=["microcorporates"],
+    packages=["tuneup"],
     test_suite='pytest',
     tests_require=['pytest'],
     include_package_data=True,
     install_requires=["pandas","numpy","pytest","python-dateutil","statsmodels","microfilter","optuna", "sklearn","microconventions", "deap"],
     entry_points={
         "console_scripts": [
-            "microcorporates=microcorporates.__main__:main",
+            "tuneup=tuneup.__main__:main",
         ]
     },
 )
