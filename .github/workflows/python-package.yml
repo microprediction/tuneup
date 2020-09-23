@@ -28,6 +28,14 @@ jobs:
         python -m pip install --upgrade pip
         pip install flake8 pytest
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        pip install setuptools wheel twine
+        pip install pytest
+        pip install statsmodels
+        pip install sklearn
+        pip install optuna
+        pip install deap
+        pip install microconventions
+        pip install microfilter
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
