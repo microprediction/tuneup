@@ -32,12 +32,15 @@ def scale_me(u,scale):
 
 all_counts = Counter()      # All wins broken down by method
 overall_counts = Counter()  # Total number of wins for projection
-n_trials = 20               # Number of evaluations of the objective function
-n_races  = 500              # Number of times to run the horse race
+n_trials = 200               # Number of evaluations of the objective function
+n_races  = 1600             # Number of times to run the horse race
 for objective,scale in OBJECTIVES.items():
     current_counts = Counter()
 
+    print(' ')
+    print(' ')
     print(objective.__name__)
+    print(n_trials)
 
     zc = ZCurveConventions()
 
@@ -85,7 +88,7 @@ for objective,scale in OBJECTIVES.items():
         all_counts.update({objective.__name__+'::'+winners[0]:1})
         overall_counts.update({winners[0]:1})
         current_counts.update({winners[0]:1})
-        if iter % 100 ==0:
+        if iter % 200 ==0:
             print(current_counts)
 
 

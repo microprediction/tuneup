@@ -1,2 +1,11 @@
+
 # tuneup
-Specific uses of optimization and optuna in particular 
+
+Mere research notes. It may morph into a useful package if things pan out. 
+
+See /studies
+
+
+
+
+
