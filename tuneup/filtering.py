@@ -7,7 +7,7 @@ from microfilter.univariate.expnormdist import DEFAULT_EXPNORM_PARAMS, DEFAULT_E
 from microfilter.univariate.noisysim import sim_data
 from copy import deepcopy
 from functools import partial, update_wrapper
-from itertools import permutations
+from itertools import permutations, combinations
 
 NOISY_DATA = sim_data(chronological=True)
 lagged_values = list(reversed(NOISY_DATA))
@@ -38,8 +38,8 @@ def wrapped_partial(func, *args, **kwargs):
 
 def make_expnorm_objectives():
      objectives = dict()
-     all_vars = ['g1','g2','logK','loc''logScale']
-     perms = permutations(all_vars,3)
+     all_vars = ['g1','g2','logK','loc','logScale']
+     perms = combinations(all_vars,3)
      for vars in perms:
         objective1 = wrapped_partial(expnorm_objective,v1=vars[0],v2=vars[1],v3=vars[2])
         objective1.__name__ = 'expnorm (varying '+','.join(vars)+')'

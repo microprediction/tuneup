@@ -26,10 +26,12 @@ def scale_me(u,scale):
 
 all_counts = Counter()      # All wins broken down by method
 overall_counts = Counter()  # Total number of wins for projection
-n_trials = 10               # Number of evaluations of the objective function
-n_races  = 1000             # Number of times to run the horse race
-N_BENCHMARK_TRIALS = [1,2,4,8,16,32,64,128,256,512]
-N_BENCHMARK_TRIALS_str = ' To create a quantized performance scale we averaged the best objective value when $n$ trials were allowed optimizing $F$, where $n$ was chosen from '+ ','.join([str(trl) for trl in N_BENCHMARK_TRIALS[:-1]])+' and '+str(N_BENCHMARK_TRIALS[-1])+'.'
+n_trials = 20               # Number of evaluations of the objective function
+n_races  = 10000            # Number of times to run the horse race
+N_BENCHMARK_TRIALS = [1,2,4,8,16,32,64,128,256][:5]
+N_BENCHMARK_TRIALS_str = ' To create a quantized performance scale we averaged the best objective value when $n$ trials were allowed optimizing $F$, where $n$ was chosen from '+\
+                         ','.join([str(trl) for trl in N_BENCHMARK_TRIALS[:-1]])+' and '+str(N_BENCHMARK_TRIALS[-1])+\
+                         '. A win or loss indicates that the search was better, or worse, by an amount that would normally be commensurate with a doubling of computation time, at least.'
 
 for objective,scale in OBJECTIVES.items():
     current_counts = Counter()
@@ -51,7 +53,6 @@ for objective,scale in OBJECTIVES.items():
         u = trial.suggest_float('u',1e-6,1-1e-6)
         z = StatsConventions.norminv(u)
         u2 = zc.from_zcurve(zvalue=z, dim=3)
-
         return objective(scale_me(u2,scale))[0]
 
     def trivariate(trial):
@@ -78,7 +79,7 @@ for objective,scale in OBJECTIVES.items():
     good_scores = list()
     for n_benchmark_trials in N_BENCHMARK_TRIALS:
         the_best_values = list()
-        num_samples = 10 if n_benchmark_trials<=3*n_trials else 3
+        num_samples = 50 if n_benchmark_trials<=3*n_trials else 10
         for _ in range(num_samples):
             study.optimize(HORSE_RACE[1],n_trials=n_benchmark_trials)
             the_best_values.append(study.best_value)
@@ -134,24 +135,25 @@ for objective in OBJECTIVES:
     wins = all_counts[objective.__name__+'::'+winner]
     draws = all_counts[objective.__name__+"::draw"]
     losses = all_counts[objective.__name__+'::'+loser]
-    if losses>0 and wins>0:
+    if losses>0:
         ratio_str = '$ '+str(round(wins/losses,ndigits=2))+' $ '
-    elif wins>0:
+    elif wins>0 and losses==0:
         ratio_str = ' $ \infty $'
     else:
         ratio_str = ' '
     ltx += capitalize(objective.__name__) + ' & ' + '& '.join([str(j) for j in [wins,draws,losses]]) + ' & ' + ratio_str +  '\\\\ \hline '
 
 ltx +=  r"""\end{tabular}
-    \caption{We tabulate how often use of a space filling curve helps a global
-    optimization performed by the Optuna library. The optimization is permitted to run to
+    \caption{We tabulate how often use of a space filling curve helps (win column) or harms (loss column) a global
+    optimization performed by the Optuna library. Some classic objective functions were borrowed from the DEAP collection of benchmarks. We also included optization problems motivated by
+    time series prediction parameter estimation. The optimization is permitted to run to
     to $N$ function evaluations, first using a direct optimization of a trivariate function $F$ and then subsequently an equivalent univariate function $f$.""" + N_BENCHMARK_TRIALS_str + """
      }
     \label{tab:horseraceN}
-\end{table}""".replace('N',str(n_trials))
+\end{table}"""
 
 
-ltx = ltx.replace('_scaled',' (scaled)').replace('_skew',' (skew)')
+ltx = ltx.replace('_scaled',' (scaled)').replace('_skew',' (skew)').replace('N',str(n_trials)).replace('N',str(n_trials))
 
 print(' ')
 print(escape_bs_and_ff(ltx))
