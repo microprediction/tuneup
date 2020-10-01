@@ -5,7 +5,8 @@ from ax.utils.common.logger import get_root_logger
 rt = get_root_logger()
 rt.setLevel(CRITICAL)
 import warnings
-warnings.filterwarnings("ignore", category=UserWarning)
+warnings.filterwarnings("ignore")
+warnings.filterwarnings("ignore")
 
 
 def ax_cube(objective,scale, n_trials):

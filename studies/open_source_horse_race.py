@@ -25,12 +25,13 @@ SOLVERS = [ax_cube, powell_cube, shgo_cube,hyperopt_cube, optuna_cube, pysot_cub
 #------------
 
 
-DEBUG = True
-MAX_OBJECTIVES = 5 if DEBUG else 10
-MAX_RATINGS = 2 if DEBUG else 20
+DEBUG = False
+REVERSE_OBJECTIVES = True
+MAX_OBJECTIVES = 2 if DEBUG else 10
+MAX_RATINGS = 5 if DEBUG else 20
 n_outer_repeats = 1000
-n_benchmark_repeats = 5 if not DEBUG else 1   # Number of times to call each solver when setting scoring scale
-n_trials = 50 if not DEBUG else 3            # Number of evaluations of the objective function
+n_benchmark_repeats = 3 if not DEBUG else 1   # Number of times to call each solver when setting scoring scale
+n_trials = 50 if not DEBUG else 10            # Number of evaluations of the objective function
 n_races  = 100 if not DEBUG else 2             # Number of times to run the horse race
 
 
@@ -40,8 +41,7 @@ n_races  = 100 if not DEBUG else 2             # Number of times to run the hors
 #------------
 
 
-
-OBJECTIVES = dict([(k,v) for k,v in OBJECTIVES.items()][:MAX_OBJECTIVES])
+OBJECTIVES = dict(reversed([(k,v) for k,v in OBJECTIVES.items()][:MAX_OBJECTIVES]))
 all_counts = Counter()      # All wins broken down by method
 overall_counts = Counter()  # Total number of wins for projection
 N_BENCHMARK_TRIALS = [1,2,4,8,16,32,64,128,256,512][:MAX_RATINGS]
@@ -70,7 +70,7 @@ def print_start_of_table():
 def print_end_of_table():
     print("""  \hline
      \end{tabular}
-    \caption{Caption}
+    \caption{CAPTION}
     \label{tab:my_label}
      \end{table}""")
 
@@ -92,7 +92,7 @@ for outer_iter in range(n_outer_repeats):
                 the_best_values = list()
                 for _ in range(n_benchmark_repeats):
                     f_values = [ solver(objective,scale,n_trials=n_benchmark_trials) for solver in SOLVERS ]
-                    the_best_values.append(max(f_values))
+                    the_best_values.append(np.mean(f_values))
                 good_scores.append(np.mean(the_best_values))
                 print(good_scores)
             good_scores_cache[objective.__name__] = good_scores
