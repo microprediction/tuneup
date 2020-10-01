@@ -67,8 +67,7 @@ def print_start_of_table():
     print(' \hline ')
 
 def print_end_of_table():
-    print("""
-     \hline
+    print("""  \hline
      \end{tabular}
     \caption{Caption}
     \label{tab:my_label}
@@ -90,11 +89,9 @@ for outer_iter in range(n_outer_repeats):
             good_scores = list()
             for n_benchmark_trials in N_BENCHMARK_TRIALS:
                 the_best_values = list()
-                num_samples = 3*n_benchmark_repeats if n_benchmark_trials<=n_trials else n_benchmark_repeats
-                for _ in range(num_samples):
-                    for solver in SOLVERS:
-                        the_best_value = solver(objective,scale,n_trials=n_benchmark_trials)
-                        the_best_values.append(the_best_value)
+                for _ in range(n_benchmark_repeats):
+                    f_values = [ solver(objective,scale,n_trials=n_benchmark_trials) for solver in SOLVERS ]
+                    the_best_values.append(max(f_values))
                 good_scores.append(np.mean(the_best_values))
                 print(good_scores)
             good_scores_cache[objective.__name__] = good_scores
