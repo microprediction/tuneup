@@ -51,4 +51,4 @@ def test_example_simple():
 
 
 if __name__ == "__main__":
-    example_simple()
+    test_example_simple()
