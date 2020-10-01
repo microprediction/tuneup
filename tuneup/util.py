@@ -12,7 +12,7 @@ def dilate(u,scale):
 
 def chop(x):
     d = decimal.Decimal(x)
-    return str(d.quantize(decimal.Decimal(".01"), decimal.ROUND_DOWN))
+    return str(d.quantize(decimal.Decimal(".1"), decimal.ROUND_DOWN))
 
 def escape_bs_and_ff(s):
     return s.replace("\b", "\\b").replace("\f", "\\f")

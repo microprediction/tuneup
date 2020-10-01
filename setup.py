@@ -7,7 +7,7 @@ README = (HERE / "README.md").read_text()
 
 setup(
     name="tuneup",
-    version="0.0.1",
+    version="0.0.2",
     description="Studying optuna and other optim packages",
     long_description=README,
     long_description_content_type="text/markdown",
@@ -24,7 +24,7 @@ setup(
     test_suite='pytest',
     tests_require=['pytest'],
     include_package_data=True,
-    install_requires=["pandas","numpy","pytest","python-dateutil","statsmodels","microfilter","optuna", "sklearn","microconventions", "deap","wheel"],
+    install_requires=["pandas","numpy","pytest","python-dateutil","statsmodels","microfilter","optuna", "sklearn","microconventions", "deap","wheel","hyperopt"],
     entry_points={
         "console_scripts": [
             "tuneup=tuneup.__main__:main",

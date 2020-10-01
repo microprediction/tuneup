@@ -2,7 +2,7 @@ import optuna
 from microconventions.zcurve_conventions import ZCurveConventions
 from microconventions.stats_conventions import StatsConventions
 from collections import Counter
-from tuneup.objective_functions import OBJECTIVES
+from tuneup.objective_functions import DEAP_OBJECTIVES as OBJECTIVES
 from microprediction.univariate.runningmoments import RunningVariance
 import pandas as pd
 from pprint import pprint
@@ -11,30 +11,42 @@ from tuneup.hyperoptcube import hyperopt_cube
 from tuneup.pysotcube import pysot_cube
 import numpy as np
 from tuneup.util import chop, escape_bs_and_ff
+from tuneup.shgocube import shgo_cube
+from tuneup.powellcube import powell_cube
 
 # Comparing open source black box optimizers
 
+SOLVERS = [powell_cube, shgo_cube,hyperopt_cube, optuna_cube, pysot_cube]
 
 
-SOLVERS = [hyperopt_cube, optuna_cube, pysot_cube]
+#------------
+#   Config
+#------------
 
-MAX_OBJECTIVES = 100
-MAX_RATINGS = 100
+
+DEBUG = False
+MAX_OBJECTIVES = 10 if DEBUG else 2
+MAX_RATINGS = 100 if not DEBUG else 3
+n_outer_repeats = 1000
+n_benchmark_repeats = 5 if not DEBUG else 1   # Number of times to call each solver when setting scoring scale
+n_trials = 50 if not DEBUG else 10            # Number of evaluations of the objective function
+n_races  = 100 if not DEBUG else 2             # Number of times to run the horse race
+
+
+
+#------------
+#   Race
+#------------
+
+
 
 OBJECTIVES = dict([(k,v) for k,v in OBJECTIVES.items()][:MAX_OBJECTIVES])
-
-
 all_counts = Counter()      # All wins broken down by method
 overall_counts = Counter()  # Total number of wins for projection
-n_outer_repeats = 100
-n_benchmark_repeats = 5     # Number of times to call each solver when setting scoring scale
-n_trials = 50               # Number of evaluations of the objective function
-n_races  = 10               # Number of times to run the horse race
 N_BENCHMARK_TRIALS = [1,2,4,8,16,32,64,128,256,512][:MAX_RATINGS]
 N_BENCHMARK_TRIALS_str = ' To create a quantized performance scale we averaged the best objective value when $n$ trials were allowed optimizing $F$, where $n$ was chosen from '+\
                          ','.join([str(trl) for trl in N_BENCHMARK_TRIALS[:-1]])+' and '+str(N_BENCHMARK_TRIALS[-1])+\
                          '. A win or loss indicates that the search was better, or worse, by an amount that would normally be commensurate with a doubling of computation time, at least.'
-
 
 ratings_df = pd.DataFrame()
 

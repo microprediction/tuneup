@@ -13,7 +13,7 @@ from pySOT.strategy import SRBFStrategy
 from pySOT.surrogate import CubicKernel, LinearTail, RBFInterpolant
 
 
-def example_simple():
+def test_example_simple():
     if not os.path.exists("./logfiles"):
         os.makedirs("logfiles")
     if os.path.exists("./logfiles/example_simple.log"):
