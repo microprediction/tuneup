@@ -27,7 +27,14 @@ if __name__ == '__main__':
     dont_test_intro_example()
 
 
-error = """
+warnign_0_1_16 = """
+[INFO 09-30 20:54:49] ax.service.managed_loop: Running optimization trial 20...
+/Users/petercotton/virtual-envs/tuneup/lib/python3.7/site-packages/ax/modelbridge/torch.py:311: UserWarning:
+
+To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+"""
+
+error_0_1_15 = """
 /Users/petercotton/virtual-envs/tuneup/bin/python3 /Users/petercotton/github/tuneup/tests/test_ax.py
 Traceback (most recent call last):
   File "/Users/petercotton/github/tuneup/tests/test_ax.py", line 1, in <module>
