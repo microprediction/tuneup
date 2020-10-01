@@ -13,10 +13,11 @@ import numpy as np
 from tuneup.util import chop, escape_bs_and_ff
 from tuneup.shgocube import shgo_cube
 from tuneup.powellcube import powell_cube
+from tuneup.axcube import ax_cube
 
 # Comparing open source black box optimizers
 
-SOLVERS = [powell_cube, shgo_cube,hyperopt_cube, optuna_cube, pysot_cube]
+SOLVERS = [ax_cube, powell_cube, shgo_cube,hyperopt_cube, optuna_cube, pysot_cube]
 
 
 #------------
@@ -24,12 +25,12 @@ SOLVERS = [powell_cube, shgo_cube,hyperopt_cube, optuna_cube, pysot_cube]
 #------------
 
 
-DEBUG = False
-MAX_OBJECTIVES = 10 if DEBUG else 2
-MAX_RATINGS = 100 if not DEBUG else 3
+DEBUG = True
+MAX_OBJECTIVES = 5 if DEBUG else 10
+MAX_RATINGS = 2 if DEBUG else 20
 n_outer_repeats = 1000
 n_benchmark_repeats = 5 if not DEBUG else 1   # Number of times to call each solver when setting scoring scale
-n_trials = 50 if not DEBUG else 10            # Number of evaluations of the objective function
+n_trials = 50 if not DEBUG else 3            # Number of evaluations of the objective function
 n_races  = 100 if not DEBUG else 2             # Number of times to run the horse race
 
 

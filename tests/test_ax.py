@@ -1,4 +1,11 @@
 from ax import optimize
+import logging
+from logging import CRITICAL
+from ax.utils.common.logger import get_root_logger
+rt = get_root_logger()
+rt.setLevel(CRITICAL)
+import warnings
+warnings.filterwarnings("ignore", category=UserWarning)
 
 
 def dont_test_intro_example():
@@ -24,7 +31,7 @@ def dont_test_intro_example():
 
 
 if __name__ == '__main__':
-    bv = dont_test_intro_example()
+    dont_test_intro_example()
 
 
 warning_0_1_16 = """
