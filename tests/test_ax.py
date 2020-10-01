@@ -24,10 +24,10 @@ def dont_test_intro_example():
 
 
 if __name__ == '__main__':
-    dont_test_intro_example()
+    bv = dont_test_intro_example()
 
 
-warnign_0_1_16 = """
+warning_0_1_16 = """
 [INFO 09-30 20:54:49] ax.service.managed_loop: Running optimization trial 20...
 /Users/petercotton/virtual-envs/tuneup/lib/python3.7/site-packages/ax/modelbridge/torch.py:311: UserWarning:
 

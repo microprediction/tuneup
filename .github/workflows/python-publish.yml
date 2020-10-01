@@ -33,6 +33,7 @@ jobs:
         pip install microconventions
         pip install microfilter
         pip install poap
+        pip install git+git://github.com/facebook/Ax.git
     - name: Build and publish
       env:
         TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
