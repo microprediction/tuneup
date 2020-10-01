@@ -34,6 +34,7 @@ jobs:
         pip install sklearn
         pip install optuna
         pip install deap
+        pip install pysot
         pip install ax-platform
         pip install scipy
         pip install microconventions
