@@ -10,7 +10,7 @@ from pymoo.util.termination.default import SingleObjectiveDefaultTermination
 
 
 
-def test_hello_world():
+def demo_hello_world():
     problem = get_problem("zdt1")
     algorithm = NSGA2(pop_size=10)
     res = minimize(problem,

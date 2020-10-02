@@ -1,14 +1,16 @@
 from tuneup.horserace import latex_horse_race
-from tuneup.trivariatesingleobjectivesolvers.trivariateboxsolvers import GOOD_SOLVERS, sigopt_cube
+from tuneup.trivariatesingleobjectivesolvers.trivariateboxsolvers import OPEN_SOURCE_SOLVERS
 from tuneup.trivariateobjectives.trivariateboxobjectives import OBJECTIVES
 from pprint import pprint
 import random
+import numpy as np
 
 
-def race_specification(debug:bool):
-    solvers = GOOD_SOLVERS + [sigopt_cube]
+def random_open_source_race_specification(debug:bool):
+    candidate_solvers = OPEN_SOURCE_SOLVERS
     objectives = OBJECTIVES
     objective_thinning = 3  # e.g. if 3 we use every 3rd objective, on average.
+    num_solvers = 6         # How many in the race ??
     max_thresholds = 5 if debug else 20
     n_outer_repeat = 1000 if not debug else 5
     n_threshold_repeat = 5 if not debug else 1  # Number of times to call each solver when setting scoring scale
@@ -16,6 +18,7 @@ def race_specification(debug:bool):
     n_inner_repeat = 100 if not debug else 2  # Number of times to run the horse race
     max_objectives = 2 if debug else 10
     objectives = dict(([(k, v) for k, v in objectives.items() if random.choice(range(objective_thinning))==0][:max_objectives]))
+    solvers = list(np.choice(candidate_solvers,num_solvers,replace=False))
     threshold_trials = [1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024][:max_thresholds]
     spec = {'objectives': objectives,
             'solvers': solvers,
@@ -28,6 +31,6 @@ def race_specification(debug:bool):
 
 
 if __name__=='__main__':
-    spec = race_specification(debug=False)
+    spec = random_open_source_race_specification(debug=False)
     pprint(spec)
     latex_horse_race(**spec)
