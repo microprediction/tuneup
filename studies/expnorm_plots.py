@@ -1,13 +1,11 @@
-import optuna
 from microconventions.zcurve_conventions import ZCurveConventions
 from microconventions.stats_conventions import StatsConventions
-from deap import benchmarks
 import numpy as np
 import matplotlib
 matplotlib.use("TkAgg")
 import matplotlib.pyplot as plt
 import math
-from tuneup.filtering import EXPNORM_OBJECTIVES
+from tuneup.trivariateobjectives.filtering import EXPNORM_OBJECTIVES
 
 # A closer look at why space filling curve does well for himelblau example
 

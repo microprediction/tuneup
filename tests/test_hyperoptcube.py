@@ -1,5 +1,5 @@
-from tuneup.objective_functions import OBJECTIVES
-from tuneup.hyperoptcube import hyperopt_cube
+from tuneup.trivariateobjectives.trivariateboxobjectives import OBJECTIVES
+from tuneup.trivariatesingleobjectivesolvers.hyperoptcube import hyperopt_cube
 
 def test_cube():
     for objective, scale in OBJECTIVES.items():

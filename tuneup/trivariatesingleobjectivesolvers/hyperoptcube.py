@@ -1,7 +1,7 @@
 from hyperopt import fmin, hp, tpe, Trials, space_eval, STATUS_OK
 
 
-# Find best value of trivariate functions on hypercubes [-scale,+scale]^3
+# Find best value of trivariateobjectives functions on hypercubes [-scale,+scale]^3
 
 def hyperopt_cube(objective,scale, n_trials):
 

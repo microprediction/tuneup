@@ -1,11 +1,12 @@
-# A master list of objective functions defined on cubes [-L,L]^d
-import deap
-from tuneup.filtering import EXPNORM_OBJECTIVES
+# A master list of objective functions defined on cubes [-scale,scale]^3
+
+from tuneup.trivariateobjectives.filtering import EXPNORM_OBJECTIVES
 from deap import benchmarks
 
 # We'll use DEAP's set of groovy benchmarks.
 # See pretty pictures at https://deap.readthedocs.io/en/master/api/benchmarks.html#deap.benchmarks
-# In the format {function:L}
+# In the format {function:scale}
+
 DEAP_OBJECTIVES = {benchmarks.schaffer:100,
               benchmarks.bohachevsky:100,
               benchmarks.griewank:600,
@@ -19,7 +20,5 @@ DEAP_OBJECTIVES = {benchmarks.schaffer:100,
 AN_OBJECTIVE = (benchmarks.schwefel,5.12)
 
 # But also some from a "real" filtering problem
-OBJECTIVES = EXPNORM_OBJECTIVES
-
-
-OBJECTIVES.update(DEAP_OBJECTIVES)
+OBJECTIVES = DEAP_OBJECTIVES
+OBJECTIVES.update(EXPNORM_OBJECTIVES)

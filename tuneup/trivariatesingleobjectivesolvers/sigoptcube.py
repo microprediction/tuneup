@@ -38,6 +38,6 @@ def sigopt_cube(objective, scale, n_trials):
 
 
 if __name__=='__main__':
-  from tuneup.objective_functions import AN_OBJECTIVE
+  from tuneup.trivariateobjectives.trivariateboxobjectives import AN_OBJECTIVE
   objective, scale = AN_OBJECTIVE
   print(sigopt_cube(objective=objective,scale=scale,n_trials=2))

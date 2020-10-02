@@ -3,7 +3,7 @@ from microconventions.zcurve_conventions import ZCurveConventions
 from microconventions.stats_conventions import StatsConventions
 from collections import Counter
 from optuna.logging import CRITICAL
-from tuneup.objective_functions import OBJECTIVES
+from tuneup.trivariateobjectives.trivariateboxobjectives import OBJECTIVES
 
 
 # This study investigates the performance degredation, if any, when we transfer a function of 2 or 3 variables to a univariate function
@@ -123,7 +123,7 @@ def escape_bs_and_ff(s):
 
 # Latex table of results
 winner = 'univariate_trivariate'
-loser = 'trivariate'
+loser = 'trivariateobjectives'
 ltx = """ \begin{table}[]
     \centering
     \begin{tabular}{|l|c|c|c|c|}
@@ -147,7 +147,7 @@ ltx +=  r"""\end{tabular}
     \caption{We tabulate how often use of a space filling curve helps (win column) or harms (loss column) a global
     optimization performed by the Optuna library. Some classic objective functions were borrowed from the DEAP collection of benchmarks. We also included optization problems motivated by
     time series prediction parameter estimation. The optimization is permitted to run to
-    to $N$ function evaluations, first using a direct optimization of a trivariate function $F$ and then subsequently an equivalent univariate function $f$.""" + N_BENCHMARK_TRIALS_str + """
+    to $N$ function evaluations, first using a direct optimization of a trivariateobjectives function $F$ and then subsequently an equivalent univariate function $f$.""" + N_BENCHMARK_TRIALS_str + """
      }
     \label{tab:horseraceN}
 \end{table}"""

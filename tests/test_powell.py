@@ -1,7 +1,7 @@
 from scipy.optimize import minimize
-from tuneup.objective_functions import AN_OBJECTIVE
-from tuneup.powellcube import powell_cube
-from tuneup.optunacube import optuna_cube
+from tuneup.trivariateobjectives.trivariateboxobjectives import AN_OBJECTIVE
+from tuneup.trivariatesingleobjectivesolvers.powellcube import powell_cube
+from tuneup.trivariatesingleobjectivesolvers.optunacube import optuna_cube
 
 
 def test_powell_cube():
@@ -9,6 +9,7 @@ def test_powell_cube():
     best_value_1 = powell_cube(objective=objective,scale=scale,n_trials=20)
     best_value_2 = optuna_cube(objective=objective, scale=scale, n_trials=20)
     assert abs(best_value_1-best_value_2)<100.
+    print(best_value_1)
 
 
 def test_powell():
