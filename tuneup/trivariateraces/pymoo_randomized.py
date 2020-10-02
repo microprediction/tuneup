@@ -1,16 +1,17 @@
 from tuneup.horserace import latex_horse_race
-from tuneup.trivariatesingleobjectivesolvers.trivariateboxsolvers import OPEN_SOURCE_SOLVERS
+from tuneup.trivariatesingleobjectivesolvers.trivariateboxsolvers import PYMOO_SOLVERS, PYMOO_BROKEN
 from tuneup.trivariateobjectives.trivariateboxobjectives import OBJECTIVES
 from pprint import pprint
 import random
 import numpy as np
 
+# Not working too well as the PyMoo arguments remain mysterious to me
 
 def random_open_source_race_specification(debug:bool):
-    candidate_solvers = OPEN_SOURCE_SOLVERS
+    candidate_solvers = [slv for slv in PYMOO_SOLVERS if slv not in PYMOO_BROKEN ]
     objectives = OBJECTIVES
     objective_thinning = 3  # e.g. if 3 we use every 3rd objective, on average.
-    num_solvers = 6         # How many in the race ??
+    num_solvers = 6 if not debug else 3        # How many in the race ??
     max_thresholds = 5 if debug else 20
     n_outer_repeat = 1000 if not debug else 5
     n_threshold_repeat = 5 if not debug else 1  # Number of times to call each solver when setting scoring scale
