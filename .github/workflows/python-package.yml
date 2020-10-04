@@ -39,6 +39,7 @@ jobs:
         pip install microconventions
         pip install microfilter
         pip install poap
+        pip install pymoo
         pip install git+git://github.com/facebook/Ax.git
     - name: Lint with flake8
       run: |

@@ -26,7 +26,8 @@ setup(
     include_package_data=True,
     install_requires=["pandas","numpy","pytest","python-dateutil","statsmodels","microfilter",
                       "optuna", "sklearn","scipy","microconventions", "deap","wheel","hyperopt",
-                      "statsmodels","ax-platform","pysot","poap","microprediction","Platypus-Opt","sigopt","wheel"],
+                      "statsmodels","ax-platform","pysot","poap","microprediction","Platypus-Opt","sigopt","wheel",
+                      "pymoo"],
     entry_points={
         "console_scripts": [
             "tuneup=tuneup.__main__:main",
