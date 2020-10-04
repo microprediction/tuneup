@@ -9,12 +9,11 @@ from tuneup.trivariatesingleobjectivesolvers.pymoocube import brkga_cube, patter
     de_cube, ctaea_cube, moead_cube, unsga3_cube, rnsga2_cube, rnsga3_cube, nsga3_cube, nsga2_cube
 from tuneup.trivariatesingleobjectivesolvers.sigoptcube import sigopt_cube
 
-OPEN_SOURCE_SOLVERS = [genetic_cube, evolutionary_cube,  # pymoo
+OPEN_SOURCE_SOLVERS = [genetic_cube, evolutionary_cube,  # platypus
                        nelder_cube, cmaes_cube,          # pymoo
-                       ax_cube,                          # facebook
-                       powell_cube,                      # scipy
                        brkga_cube, pattern_cube,         # pymoo
-                       shgo_cube,                        # scipy
+                       ax_cube,                          # facebook
+                       powell_cube, shgo_cube,           # scipy
                        hyperopt_cube,                    # hyperopt
                        optuna_cube,                      # optuna
                        pysot_cube]                       # pysot

@@ -4,14 +4,18 @@ import numpy as np
 from tuneup.util import comma_and, solver_name, escape_bs_and_ff, chop
 
 
-def latex_horse_race(objectives:dict,     # {<solver>:scale, <solver>:scale}
+def latex_horse_race(objectives:dict,  # {<solver>:scale, <solver>:scale}
                      solvers:list,
                      threshold_trials:[float],
                      n_outer_repeat:int,
                      n_threshold_repeat:int,
                      n_trials:int,
-                     n_inner_repeat:int):
+                     n_inner_repeat:int,
+                     solvers_for_thresholds=None):
     """ Creates a continuously updating table that can be pasted directly into latex document """
+
+    if solvers_for_thresholds is None:
+        solvers_for_thresholds = objectives
 
     CAPTION = 'Comparison between '+ comma_and([solver_name(solver) for solver in solvers]) + \
               ' where $N='+str(n_trials)+ """$ function evaluations are permitted. ' +
@@ -60,7 +64,7 @@ def latex_horse_race(objectives:dict,     # {<solver>:scale, <solver>:scale}
                 for n_benchmark_trials in threshold_trials:
                     the_best_values = list()
                     for _ in range(n_threshold_repeat):
-                        f_values = [solver(objective, scale, n_trials=n_benchmark_trials) for solver in solvers]
+                        f_values = [solver(objective, scale, n_trials=n_benchmark_trials) for solver in solvers_for_thresholds]
                         the_best_values.append(np.mean(f_values))
                     good_scores.append(np.mean(the_best_values))
                     print(good_scores)

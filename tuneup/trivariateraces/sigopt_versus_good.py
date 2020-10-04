@@ -16,14 +16,15 @@ def race_specification(debug:bool):
     n_inner_repeat = 100 if not debug else 2  # Number of times to run the horse race
     max_objectives = 2 if debug else 10
     objectives = dict(([(k, v) for k, v in objectives.items() if random.choice(range(objective_thinning))==0][:max_objectives]))
-    threshold_trials = [1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024][:max_thresholds]
+    threshold_trials = [1, 2, 4, 8, 16, 32, 64, 128, 256, 512][:max_thresholds]
     spec = {'objectives': objectives,
             'solvers': solvers,
             'threshold_trials': threshold_trials,
             'n_outer_repeat': n_outer_repeat,
             'n_threshold_repeat': n_threshold_repeat,
             'n_trials': n_trials,
-            'n_inner_repeat': n_inner_repeat}
+            'n_inner_repeat': n_inner_repeat,
+            'solvers_for_thresholds': GOOD_SOLVERS}
     return spec
 
 

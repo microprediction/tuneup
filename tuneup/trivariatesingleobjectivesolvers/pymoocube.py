@@ -4,7 +4,6 @@ import numpy as np
 from pymoo.factory import get_algorithm, get_termination, get_reference_directions
 
 REF_DIRS = get_reference_directions("das-dennis", 1, n_partitions=6)
-algorithm = get_algorithm("nsga3", ref_dirs=REF_DIRS)
 
 
 def brkga_cube(objective, scale, n_trials):

@@ -7,6 +7,7 @@ import numpy as np
 
 # Not working too well as the PyMoo arguments remain mysterious to me
 
+
 def random_open_source_race_specification(debug:bool):
     candidate_solvers = [slv for slv in PYMOO_SOLVERS if slv not in PYMOO_BROKEN ]
     objectives = OBJECTIVES
@@ -27,7 +28,8 @@ def random_open_source_race_specification(debug:bool):
             'n_outer_repeat': n_outer_repeat,
             'n_threshold_repeat': n_threshold_repeat,
             'n_trials': n_trials,
-            'n_inner_repeat': n_inner_repeat}
+            'n_inner_repeat': n_inner_repeat,
+            'solvers_for_thresholds':solvers}
     return spec
 
 
