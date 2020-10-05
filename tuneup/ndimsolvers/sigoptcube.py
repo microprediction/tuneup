@@ -1,5 +1,9 @@
 from sigopt import Connection
-from tuneup.sigopt_credentials_private import SIG_KEY, PROJECT
+import logging
+try:
+    from tuneup.sigopt_credentials_private import SIG_KEY, PROJECT
+except ImportError:
+    pass
 import uuid
 
 
