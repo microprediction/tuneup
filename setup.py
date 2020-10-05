@@ -7,7 +7,7 @@ README = (HERE / "README.md").read_text()
 
 setup(
     name="tuneup",
-    version="0.0.4",
+    version="0.0.5",
     description="Global optimizer comparison",
     long_description=README,
     long_description_content_type="text/markdown",
@@ -20,7 +20,7 @@ setup(
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.7",
     ],
-    packages=["tuneup"],
+    packages=["tuneup","tuneup.ndimraces"],
     test_suite='pytest',
     tests_require=['pytest'],
     include_package_data=True,
