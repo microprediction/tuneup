@@ -7,7 +7,7 @@ README = (HERE / "README.md").read_text()
 
 setup(
     name="tuneup",
-    version="0.0.5",
+    version="0.0.6",
     description="Global optimizer comparison",
     long_description=README,
     long_description_content_type="text/markdown",

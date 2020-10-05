@@ -9,7 +9,7 @@ import random
 def race_specification(debug:bool):
     solvers = OPEN_SOURCE_SOLVERS + VENDOR_SOLVERS
     objectives = OBJECTIVES
-    objective_thinning = 3  # e.g. if 3 we use every 3rd objective, on average.
+    objective_thinning = 3 if debug else 2  # e.g. if 3 we use every 3rd objective, on average.
     max_thresholds = 5 if debug else 20
     n_outer_repeat = 1000 if not debug else 5
     n_threshold_repeat = 5 if not debug else 1  # Number of times to call each solver when setting scoring scale
@@ -31,6 +31,6 @@ def race_specification(debug:bool):
 
 
 if __name__=='__main__':
-    spec = race_specification(debug=False)
+    spec = race_specification(debug=True)
     pprint(spec)
     latex_horse_race(**spec)
