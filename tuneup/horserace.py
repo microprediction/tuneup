@@ -18,12 +18,12 @@ def latex_horse_race(objectives:dict,  # {<solver>:scale, <solver>:scale}
         solvers_for_thresholds = objectives
 
     CAPTION = 'Comparison between '+ comma_and([solver_name(solver) for solver in solvers]) + \
-              ' where $N='+str(n_trials)+ """$ function evaluations are permitted. ' +
-              ' To create a quantized performance scale we averaged the best objective
+              ' where $N='+str(n_trials)+ """$ function evaluations are permitted. 
+              To create a quantized performance scale we averaged the best objective
                value when $n$ trials were allowed optimizing $F$, where $n$ was chosen from """ + \
                  comma_and(threshold_trials) + \
-                """. A difference of $\pm 1$ indicates that minimum was better, or worse, by an amount'+
-                     'that would normally be commensurate with a doubling of computation time.
+                """. A difference of $\pm 1$ indicates that minimum was better, or worse, by an amount
+                     that would normally be commensurate with a doubling of computation time.
                 """
 
     performance = dict()
