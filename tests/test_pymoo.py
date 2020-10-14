@@ -54,5 +54,9 @@ def pymoo_cube_sortof(n_trials=50):
     return f_min
 
 
+
+
+
+
 if __name__=='__main__':
     pymoo_cube_sortof(n_trials=100)

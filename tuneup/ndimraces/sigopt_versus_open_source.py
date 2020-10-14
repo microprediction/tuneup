@@ -1,18 +1,19 @@
 from tuneup.ndimhorserace import run_race, OutputType
 from tuneup.ndimsingleobjectives.ndimboxobjectives import OBJECTIVES
-from tuneup.ndimsolvers.ndimboxsolvers import OPEN_SOURCE_SOLVERS, optuna_cube, hyperopt_cube, pysot_cube
+from tuneup.ndimsolvers.ndimboxsolvers import OPEN_SOURCE_SOLVERS, optuna_cube, hyperopt_cube, pysot_cube, sigopt_cube
 from pprint import pprint
 import random
 
 
 def race_specification(debug:bool,output_type:OutputType):
     n_dim = 6 if not debug else 3
-    solvers = [optuna_cube, hyperopt_cube, pysot_cube]
+    solvers = [optuna_cube, hyperopt_cube, pysot_cube,sigopt_cube]
+    solvers_for_thresholds = [optuna_cube, hyperopt_cube, pysot_cube]
     objectives = OBJECTIVES
     objective_thinning = 2 if debug else 1 # e.g. if 3 we use every 3rd objective, on average.
     max_thresholds = 2 if debug else 20
     n_outer_repeat = 1000 if not debug else 5
-    n_threshold_repeat = 10 if not debug else 1  # Number of times to call each solver when setting scoring scale
+    n_threshold_repeat = 5 if not debug else 1  # Number of times to call each solver when setting scoring scale
     n_trials = 225 if not debug else 5  # Number of evaluations of the objective function
     n_inner_repeat = 100 if not debug else 2  # Number of times to run the horse race
     max_objectives = 2 if debug else 10
@@ -26,7 +27,7 @@ def race_specification(debug:bool,output_type:OutputType):
             'n_trials': n_trials,
             'n_inner_repeat': n_inner_repeat,
             'n_dim':n_dim,
-            'solvers_for_thresholds': solvers,
+            'solvers_for_thresholds': solvers_for_thresholds,
             'output_type':output_type}
     return spec
 

@@ -12,16 +12,22 @@ def test_powell_cube():
     print(best_value_1)
 
 
-def test_powell():
+
+def test_feval_count(n_dim=6):
     scale = 5
-    bounds = [(-scale,scale), (-scale, scale), (-scale, scale) ]
+    bounds = [(-scale,scale) ]*n_dim
+    global feval_count
+    feval_count = 0
 
     def _objective(x):
-        return x[0]*x[1]*x[1]
+        global feval_count
+        feval_count += 1
+        return x[0]*x[1]*x[1]-3*x[0]+x[2]*x[1]
 
-    result = minimize(_objective, x0=[0,0,0], method='Powell',bounds=bounds, options={'maxfev':20})
+    result = minimize(_objective, x0=[0.5]*n_dim, method='Powell',bounds=bounds, options={'maxfev':700})
     print(result.fun)
+    print(str(feval_count))
 
 
 if __name__=='__main__':
-    test_powell_cube()
+    test_feval_count(n_dim=30)
