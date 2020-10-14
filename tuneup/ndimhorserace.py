@@ -57,10 +57,12 @@ def bad_versus_good(objectives:dict,  # {<solver>:scale, <solver>:scale}
 
     bad_and_good = [bad_solver]+good_solvers
     performance = dict()
+    feval_counts = RunningVariance()
     for _ in range(n_outer_repeat):
         for objective, scale in objectives.items():
             for _ in range(n_inner_repeat):
                 f_bad_min,f_bad_count = bad_solver(objective, scale, n_trials=n_trials, n_dim=n_dim, with_count=True)
+                feval_counts.update(f_bad_count)
                 f_good_mins = [ solver(objective, scale, n_trials=f_bad_count, n_dim=n_dim, with_count=False) for solver in good_solvers]
                 all_mins = [f_bad_min]+f_good_mins
                 all_res = [ (obj_solver_key(objective, slvr),min_val) for slvr,min_val in zip(bad_and_good,all_mins) ]
@@ -69,6 +71,8 @@ def bad_versus_good(objectives:dict,  # {<solver>:scale, <solver>:scale}
                         performance[ky] = RunningVariance()
                     performance[ky].update(val)
         pprint(performance)
+        print(' ...based on feval_counts ... ')
+        print(feval_counts)
         print(' ')
         print(performance_html_table(performance))
         print(' ')

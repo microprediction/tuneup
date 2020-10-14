@@ -1,13 +1,13 @@
 from tuneup.ndimhorserace import run_race, OutputType, bad_versus_good
 from tuneup.ndimsingleobjectives.ndimboxobjectives import OBJECTIVES
-from tuneup.ndimsolvers.ndimboxsolvers import OPEN_SOURCE_SOLVERS, optuna_cube, hyperopt_cube, pysot_cube, sigopt_cube, shgo_cube
+from tuneup.ndimsolvers.ndimboxsolvers import OPEN_SOURCE_SOLVERS, optuna_cube, hyperopt_cube, pysot_cube, sigopt_cube, shgo_cube, powell_cube
 import random
 from pprint import pprint
 
 def race_specification(debug:bool):
     n_dim = 6 if not debug else 3
-    n_trials = 5 if debug else 100
-    bad_solver = shgo_cube # Does not do the right number of function evals
+    n_trials = 100 if debug else 20
+    bad_solver = powell_cube # Does not do the right number of function evals
     good_solvers = [optuna_cube, hyperopt_cube, pysot_cube]
     objectives = OBJECTIVES
     objective_thinning = 2 if debug else 1 # e.g. if 3 we use every 3rd objective, on average.

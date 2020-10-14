@@ -14,7 +14,7 @@ def race_specification(debug:bool,output_type:OutputType):
     n_outer_repeat = 1000 if not debug else 5
     n_threshold_repeat = 10 if not debug else 1  # Number of times to call each solver when setting scoring scale
     n_trials = 225 if not debug else 5  # Number of evaluations of the objective function
-    n_inner_repeat = 100 if not debug else 2  # Number of times to run the horse race
+    n_inner_repeat = 10 if not debug else 2  # Number of times to run the horse race
     max_objectives = 2 if debug else 10
     objectives = dict(([(k, v) for k, v in objectives.items() if random.choice(range(objective_thinning))==0][:max_objectives]))
     threshold_trials = [64,90,128,181,256, 362, 512, 724, 1024, 1448][:max_thresholds]

@@ -23,6 +23,7 @@ def optuna_cube(objective,scale, n_trials,n_dim, with_count=False):
         return study.best_value
 
 if __name__=='__main__':
-  from tuneup.ndimsingleobjectives.ndimboxobjectives import AN_OBJECTIVE
-  objective, scale = AN_OBJECTIVE
-  print(optuna_cube(objective=objective,scale=scale,n_trials=2,n_dim=10))
+    from tuneup.ndimsingleobjectives.ndimboxobjectives import OBJECTIVES
+
+    for objective, scale in OBJECTIVES.items():
+        print((objective.__name__,optuna_cube(objective, scale, n_trials=50, n_dim=6, with_count=True)))
