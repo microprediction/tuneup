@@ -88,8 +88,17 @@ def pymoo_cube(objective, scale, n_trials, method_name, n_dim, with_count, ref_d
     return (f_min, problem.feval_count) if with_count else f_min
 
 
-if __name__ == '__main__':
-    from tuneup.trivariateobjectives.trivariateboxobjectives import AN_OBJECTIVE
+PYMOO_BROKEN = [de_cube,rnsga2_cube]
+PYMOO_GOOD = [nelder_cube,ctaea_cube,nsga3_cube,pattern_cube]
+PYMOO_BAD = [brkga_cube,nsga2_cube]
 
-    objective, scale = AN_OBJECTIVE
-    print(brkga_cube(objective, scale, n_trials=20, n_dim=3, with_count=True))
+if __name__ == '__main__':
+
+    from tuneup.ndimsingleobjectives.ndimboxobjectives import OBJECTIVES
+
+    for solver in PYMOO_BAD:
+        print(' ')
+        print(solver)
+        for objective, scale in OBJECTIVES.items():
+            print((objective.__name__,solver(objective, scale, n_trials=100, n_dim=3, with_count=True)))
+    print('done')
