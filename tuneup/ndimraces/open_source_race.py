@@ -6,7 +6,7 @@ import random
 
 
 def race_specification(debug:bool,output_type:OutputType):
-    n_dim = 6 if not debug else 3
+    n_dim = 20 if not debug else 3
     solvers = [optuna_cube, hyperopt_cube, pysot_cube]
     objectives = OBJECTIVES
     objective_thinning = 2 if debug else 1 # e.g. if 3 we use every 3rd objective, on average.

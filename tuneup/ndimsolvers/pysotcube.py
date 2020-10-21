@@ -71,4 +71,4 @@ if __name__ == '__main__':
     from tuneup.trivariateobjectives.trivariateboxobjectives import AN_OBJECTIVE
 
     objective, scale = AN_OBJECTIVE
-    print(pysot_cube(objective, scale, n_trials=20, n_dim=3, with_count=True))
+    print(pysot_cube(objective, scale, n_trials=100, n_dim=3, with_count=True))

@@ -24,9 +24,7 @@ def hyperopt_cube(objective,scale, n_trials, n_dim, with_count=False):
 
 
 if __name__=='__main__':
-    def silly(u):
-        return u[0]*u[1]*u[2]+u[5]*2,
+    from tuneup.trivariateobjectives.trivariateboxobjectives import OBJECTIVES
 
-    best, cnt = hyperopt_cube(objective=silly,scale=1, n_trials=50, n_dim=10, with_count=True)
-    print(best)
-    print(cnt)
+    for objective, scale in OBJECTIVES.items():
+        print(hyperopt_cube(objective, scale, n_trials=1000, n_dim=5, with_count=True))
