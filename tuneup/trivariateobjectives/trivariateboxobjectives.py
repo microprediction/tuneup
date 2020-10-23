@@ -18,6 +18,7 @@ DEAP_OBJECTIVES = {benchmarks.schaffer:100,
               benchmarks.schwefel:500}
 
 AN_OBJECTIVE = (benchmarks.schwefel,5.12)
+ANOTHER_OBJECTIVE=(benchmarks.schaffer,100)
 
 # But also some from a "real" filtering problem
 OBJECTIVES = DEAP_OBJECTIVES

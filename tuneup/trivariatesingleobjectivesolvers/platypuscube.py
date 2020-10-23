@@ -26,3 +26,11 @@ def platypus_cube(objective,scale, n_trials, strategy):
     feasible_solution_obj = [s.objectives[0] for s in algorithm.result if s.feasible]
     best_obj = min(feasible_solution_obj)
     return best_obj
+
+
+if __name__ == '__main__':
+    from tuneup.trivariateobjectives.trivariateboxobjectives import OBJECTIVES
+
+    for objective, scale in OBJECTIVES.items():
+        print(evolutionary_cube(objective, scale, n_trials=5))
+        print(genetic_cube(objective, scale, n_trials=5))
