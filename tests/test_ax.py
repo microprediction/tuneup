@@ -1,14 +1,13 @@
 from ax import optimize
-import logging
 from logging import CRITICAL
-from ax.utils.common.logger import get_root_logger
-rt = get_root_logger()
-rt.setLevel(CRITICAL)
+from ax.utils.common.logger import get_logger
 import warnings
+rt = get_logger(name='ax')
+rt.setLevel(CRITICAL)
 warnings.filterwarnings("ignore", category=UserWarning)
 
 
-def dont_test_intro_example():
+def test_intro_example():
     """ https://ax.dev/ """
     best_parameters, best_values, experiment, model = optimize(
         parameters=[
@@ -31,7 +30,7 @@ def dont_test_intro_example():
 
 
 if __name__ == '__main__':
-    dont_test_intro_example()
+    test_intro_example()
 
 
 warning_0_1_16 = """
