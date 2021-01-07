@@ -7,8 +7,8 @@ README = (HERE / "README.md").read_text()
 
 setup(
     name="tuneup",
-    version="0.0.7",
-    description="Global optimizer comparison",
+    version="0.0.8",
+    description="Global optimizer comparison and combination",
     long_description=README,
     long_description_content_type="text/markdown",
     url="https://github.com/microprediction/tuneup",
@@ -20,7 +20,7 @@ setup(
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.7",
     ],
-    packages=["tuneup","tuneup.ndimraces","tuneup.ndimsingleobjectives","tuneup.ndimsolvers"],
+    packages=["tuneup"],
     test_suite='pytest',
     tests_require=['pytest'],
     include_package_data=True,
